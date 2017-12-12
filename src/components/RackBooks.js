@@ -25,7 +25,9 @@ class RackBooks extends React.Component{
                     <div className="bookshelf-books">
                         <ol className="books-grid">
                             {books.map(book => (
-                                <Book object={book} key={book.id}/>
+                                <li key={book.id}>
+                                    <Book object={book} key={book.id}/>
+                                </li>
                             ))}
                         </ol>
                     </div>

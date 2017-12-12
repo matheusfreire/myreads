@@ -45,7 +45,9 @@ class SearchBooks extends React.Component {
           <ol className="books-grid">
             {books.length > 0 && (
               books.map(book => (
-                <Book object={book} key={book.id}/>
+                <li key={book.id}>
+                  <Book object={book} key={book.id}/>
+                </li>
               ))
             )}
           </ol>
