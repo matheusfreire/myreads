@@ -48,7 +48,6 @@ class SearchBooks extends React.Component {
                 <Book object={book} key={book.id}/>
               ))
             )}
-            
           </ol>
         </div>
       </div>
