@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Book from './Book'
 import Loading from './Loading'
-import '../List.css'
 
 class RackBooks extends React.Component{
     static propTypes = {

@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import '../List.css'
 import PropTypes from 'prop-types'
 import RackBooks from './RackBooks'
 

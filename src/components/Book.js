@@ -1,5 +1,4 @@
 import React from 'react'
-import '../List.css'
 
 class Book extends React.Component{
     render(){
