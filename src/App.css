@@ -9,7 +9,11 @@ body, .app {
 }
 
 /* main page */
-
+.center{
+  display: block;
+  margin: auto;
+  width: 10%;
+}
 .list-books-title {
   padding: 10px 0;
   background: #2e7c31;
