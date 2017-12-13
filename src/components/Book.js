@@ -2,7 +2,7 @@ import React from 'react'
 
 class Book extends React.Component{
     render(){
-        const object = this.props.object
+        const {object, rack} = this.props
         return (
             <div>
                 {object && (
@@ -14,7 +14,7 @@ class Book extends React.Component{
                             }}>
                             </div>
                             <div className="book-shelf-changer">
-                                <select>
+                                <select value={rack} >
                                     <option value="none" disabled>Move to...</option>
                                     <option value="currentlyReading">Currently Reading</option>
                                     <option value="wantToRead">Want to Read</option>

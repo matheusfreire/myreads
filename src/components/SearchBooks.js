@@ -4,9 +4,12 @@ import sortBy from 'sort-by'
 import * as BooksAPI from '../BooksAPI'
 import Book from './Book'
 import Loading from './Loading'
+import PropTypes from 'prop-types'
 
 class SearchBooks extends React.Component {
-
+  static propTypes = {
+    allBooks: PropTypes.array.isRequired
+  }
   state = {
       query: '',
       books: [],
@@ -17,8 +20,16 @@ class SearchBooks extends React.Component {
     this.setState({ query: query, searching: true })
   }
 
+  findBookRack(allBooks,book){
+    if(allBooks.length === 0){
+      return 'none'
+    }
+    return allBooks.find((bookInLibrary) => bookInLibrary.id === book.id)? allBooks.find((bookInLibrary) => bookInLibrary.id === book.id).shelf : 'none'
+  }
+
   render() {
-      const { query, books, searching } = this.state
+      const { query, books, searching} = this.state
+      const allBooks = this.props.allBooks
       if (query) {
           BooksAPI.search(query).then((books) => {
             this.setState({ books: books, searching: false })
@@ -46,7 +57,7 @@ class SearchBooks extends React.Component {
                   {books.length > 0 && (
                     books.map(book => (
                       <li key={book.id}>
-                        <Book object={book} key={book.id} />
+                        <Book object={book} key={book.id} rack={ this.findBookRack(allBooks,book)}/>
                       </li>
                     ))
                   )}

@@ -14,6 +14,9 @@ class BooksApp extends React.Component {
     ],
     booksReaded: [
     ],
+    allBooks:[
+
+    ],
     showLoading:true
   }
 
@@ -23,14 +26,15 @@ class BooksApp extends React.Component {
         booksReading:books.filter((book) => book.shelf === "currentlyReading"),
         booksWant:books.filter((book) => book.shelf === "wantToRead"),
         booksReaded: books.filter((book) => book.shelf === "read"),
-        showLoading:false
+        showLoading:false,
+        allBooks: books
       }))
       
     })
   }
 
   render() {
-    const { booksReading,booksWant,booksReaded, showLoading } = this.state
+    const { booksReading,booksWant,booksReaded, showLoading,allBooks } = this.state
     return (
       <div className="app">
         <Route exact path="/" render={() => 
@@ -40,7 +44,7 @@ class BooksApp extends React.Component {
           showLoading={showLoading}/>
         }/>
         <Route exact path="/search" render={({history}) =>
-          <SearchBooks />
+          <SearchBooks allBooks={allBooks}/>
         }/>
       </div>
     )
