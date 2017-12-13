@@ -47,7 +47,7 @@ class SearchBooks extends React.Component {
                       onChange={(event) => this.searchBook(event.target.value)} />
                   </div>
               </div>
-            <div className="search-books-results" style={{ opacity: searching ? 0.5 : 1 }}>
+              <div className="search-books-results" style={{ opacity: searching ? 0.5 : 1 }}>
                 {searching && (
                   <div className="center">
                     <Loading />
