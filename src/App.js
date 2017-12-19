@@ -20,12 +20,34 @@ class BooksApp extends React.Component {
     showLoading:true
   }
 
+  updateRack = (e, book) => {
+    const rack = e.target.value;
+    let books = this.state.allBooks
+    books = books.filter(b => b.id !== book.id).concat({book})
+    BooksAPI.update(book,rack).then((booksUpdated) =>{
+        this.setState({allBooks: books})
+      }
+    )
+  }
+
+  isReading = (rack) =>{
+    return rack === "currentlyReading"
+  }
+
+  isWanted = (rack) =>{
+    return rack === "wantToRead"
+  }
+
+  isReaded = (rack) =>{
+    return rack === "read"
+  }
+
   componentDidMount() {
     BooksAPI.getAll().then((books) =>{
       this.setState(state => ({
-        booksReading:books.filter((book) => book.shelf === "currentlyReading"),
-        booksWant:books.filter((book) => book.shelf === "wantToRead"),
-        booksReaded: books.filter((book) => book.shelf === "read"),
+        booksReading:books.filter((book) => this.isReading(book.shelf)),
+        booksWant:books.filter((book) => this.isWanted(book.shelf)),
+        booksReaded: books.filter((book) => this.isReaded(book.shelf)),
         showLoading:false,
         allBooks: books
       }))
@@ -41,10 +63,12 @@ class BooksApp extends React.Component {
           <ListBooks booksReading={booksReading}
           booksWant={booksWant}
           booksReaded={booksReaded}
-          showLoading={showLoading}/>
+          showLoading={showLoading}
+          updateRack={this.updateRack}/>
         }/>
         <Route exact path="/search" render={({history}) =>
-          <SearchBooks allBooks={allBooks}/>
+          <SearchBooks allBooks={allBooks}
+            updateRack={this.updateRack}/>
         }/>
       </div>
     )

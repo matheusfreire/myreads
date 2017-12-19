@@ -9,7 +9,8 @@ import {DebounceInput} from 'react-debounce-input';
 
 class SearchBooks extends React.Component {
   static propTypes = {
-    allBooks: PropTypes.array.isRequired
+    allBooks: PropTypes.array.isRequired,
+    updateRack: PropTypes.func.isRequired
   }
   state = {
       query: '',
@@ -30,7 +31,7 @@ class SearchBooks extends React.Component {
 
   render() {
       const { query, books, searching} = this.state
-      const allBooks = this.props.allBooks
+      const {allBooks, updateRack} = this.props
       if (query) {
           BooksAPI.search(query).then((books) => {
             this.setState({ books: books, searching: false })
@@ -59,7 +60,8 @@ class SearchBooks extends React.Component {
                   {books.length > 0 && (
                     books.map(book => (
                       <li key={book.id}>
-                        <Book object={book} key={book.id} rack={ this.findBookRack(allBooks,book)}/>
+                        <Book object={book} key={book.id} rack={ this.findBookRack(allBooks,book)}
+                          updateRack={(e) => {updateRack(e,book)}}/>
                       </li>
                     ))
                   )}

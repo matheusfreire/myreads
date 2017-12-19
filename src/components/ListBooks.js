@@ -8,22 +8,23 @@ class ListBooks extends React.Component {
         booksReading: PropTypes.array.isRequired,
         booksWant: PropTypes.array.isRequired,
         booksReaded: PropTypes.array.isRequired,
+        updateRack:PropTypes.func.isRequired
     }
     state = {
 
     }
 
     render() {
-        const { booksReading, booksWant, booksReaded, showLoading } = this.props
+        const { booksReading, booksWant, booksReaded, showLoading, updateRack } = this.props
         return (
             <div className="list-books">
                 <div className="list-books-title">
                     <h1>MyReads</h1>
                 </div>
                 <div className="list-books-content">
-                    <RackBooks title={'Currently Reading'} books={booksReading} showLoading={showLoading} />
-                    <RackBooks title={'Want to Read'} books={booksWant} showLoading={showLoading}/>
-                    <RackBooks title={'Read'} books={booksReaded} showLoading={showLoading}/>
+                    <RackBooks title={'Currently Reading'} books={booksReading} showLoading={showLoading} updateRack={updateRack} />
+                    <RackBooks title={'Want to Read'} books={booksWant} showLoading={showLoading} updateRack={updateRack} />
+                    <RackBooks title={'Read'} books={booksReaded} showLoading={showLoading} updateRack={updateRack} />
                 </div>
                 <div className="open-search">
                     <Link to='search'>Add a book</Link>

@@ -1,8 +1,16 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 class Book extends React.Component{
+
+    static propTypes = {
+        object:PropTypes.object.isRequired,
+        rack:PropTypes.string.isRequired,
+        updateRack: PropTypes.func.isRequired
+    }
+
     render(){
-        const {object, rack} = this.props
+        const {object, rack, updateRack} = this.props
         return (
             <div>
                 {object && (
@@ -14,7 +22,7 @@ class Book extends React.Component{
                             }}>
                             </div>
                             <div className="book-shelf-changer">
-                                <select value={rack} >
+                                <select value={rack} onChange={updateRack} >
                                     <option value="none" disabled>Move to...</option>
                                     <option value="currentlyReading">Currently Reading</option>
                                     <option value="wantToRead">Want to Read</option>
