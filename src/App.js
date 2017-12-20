@@ -8,12 +8,6 @@ import SearchBooks from './components/SearchBooks'
 
 class BooksApp extends React.Component {
   state = {
-    booksReading: [
-    ],
-    booksWant: [
-    ],
-    booksReaded: [
-    ],
     allBooks:[
 
     ],
@@ -22,32 +16,26 @@ class BooksApp extends React.Component {
 
   updateRack = (e, book) => {
     const rack = e.target.value;
-    let books = this.state.allBooks
-    books = books.filter(b => b.id !== book.id).concat({book})
-    BooksAPI.update(book,rack).then((booksUpdated) =>{
-        this.setState({allBooks: books})
-      }
-    )
+    BooksAPI.update(book,rack).then(() =>{
+      book.shelf = rack
+      this.setState(state => ({
+        showLoading: true,
+        allBooks: state.allBooks.filter((b) => b.id !== book.id).concat([book])
+      }))
+    })
   }
 
-  isReading = (rack) =>{
-    return rack === "currentlyReading"
+  componentDidUpdate(){
+    if(this.state.showLoading){
+      this.setState({showLoading:false})
+    }
   }
 
-  isWanted = (rack) =>{
-    return rack === "wantToRead"
-  }
-
-  isReaded = (rack) =>{
-    return rack === "read"
-  }
+  
 
   componentDidMount() {
     BooksAPI.getAll().then((books) =>{
       this.setState(state => ({
-        booksReading:books.filter((book) => this.isReading(book.shelf)),
-        booksWant:books.filter((book) => this.isWanted(book.shelf)),
-        booksReaded: books.filter((book) => this.isReaded(book.shelf)),
         showLoading:false,
         allBooks: books
       }))
@@ -56,13 +44,11 @@ class BooksApp extends React.Component {
   }
 
   render() {
-    const { booksReading,booksWant,booksReaded, showLoading,allBooks } = this.state
+    const { showLoading,allBooks } = this.state
     return (
       <div className="app">
         <Route exact path="/" render={() => 
-          <ListBooks booksReading={booksReading}
-          booksWant={booksWant}
-          booksReaded={booksReaded}
+          <ListBooks books={allBooks}
           showLoading={showLoading}
           updateRack={this.updateRack}/>
         }/>

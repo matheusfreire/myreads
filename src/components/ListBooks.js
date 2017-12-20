@@ -5,17 +5,31 @@ import RackBooks from './RackBooks'
 
 class ListBooks extends React.Component {
     static propTypes = {
-        booksReading: PropTypes.array.isRequired,
-        booksWant: PropTypes.array.isRequired,
-        booksReaded: PropTypes.array.isRequired,
+        books: PropTypes.array.isRequired,
         updateRack:PropTypes.func.isRequired
     }
     state = {
 
     }
 
+    isReading = (rack) =>{
+        return rack === "currentlyReading"
+    }
+
+    isWanted = (rack) =>{
+        return rack === "wantToRead"
+    }
+
+    isReaded = (rack) =>{
+        return rack === "read"
+    }
+
     render() {
-        const { booksReading, booksWant, booksReaded, showLoading, updateRack } = this.props
+        const {showLoading, updateRack, books } = this.props
+        
+        let booksReading = books.filter((book) => this.isReading(book.shelf))
+        let booksWant = books.filter((book) => this.isWanted(book.shelf))
+        let booksReaded= books.filter((book) => this.isReaded(book.shelf))
         return (
             <div className="list-books">
                 <div className="list-books-title">
