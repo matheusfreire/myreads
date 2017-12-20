@@ -25,6 +25,7 @@ class BooksApp extends React.Component {
     })
   }
 
+  //Função para desabilitar o loading após o updateRack
   componentDidUpdate(){
     if(this.state.showLoading){
       this.setState({showLoading:false})
@@ -48,8 +49,7 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         <Route exact path="/" render={() => 
-          <ListBooks books={allBooks}
-          showLoading={showLoading}
+          <ListBooks books={allBooks} showLoading={showLoading}
           updateRack={this.updateRack}/>
         }/>
         <Route exact path="/search" render={({history}) =>
