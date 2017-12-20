@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Book from './Book'
 import Loading from './Loading'
 import sortBy from 'sort-by'
+import Book from './Book'
 
 class RackBooks extends React.Component{
     static propTypes = {
@@ -13,6 +13,7 @@ class RackBooks extends React.Component{
 
     render(){
         const {title, books, showLoading, updateRack} = this.props
+        const bookSorted = books.sort(sortBy('name'))
         return(
             <div className="bookshelf">
                 <div className="bookshelf-title">
@@ -25,11 +26,11 @@ class RackBooks extends React.Component{
                 ): (
                     <div className="bookshelf-books">
                         <ol className="books-grid">
-                            {books.sort(sortBy('name')).map(book => (
+                            {bookSorted.map(book => (
                                 <li key={book.id}>
-                                    <Book object={book} key={book.id} 
-                                        rack={book.shelf} 
-                                        updateRack={(e) => {updateRack(e,book)}}/>
+                                    {Book({book: book, rack: book.shelf, 
+                                        updateRack:(e) => {updateRack(e,book)}}
+                                    )}
                                 </li>
                             ))}
                         </ol>

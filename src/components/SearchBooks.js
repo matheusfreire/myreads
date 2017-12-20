@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import sortBy from 'sort-by'
 import * as BooksAPI from '../BooksAPI'
-import Book from './Book'
 import Loading from './Loading'
 import PropTypes from 'prop-types'
+import Book from './Book'
 import {DebounceInput} from 'react-debounce-input';
 
 class SearchBooks extends React.Component {
@@ -31,7 +31,7 @@ class SearchBooks extends React.Component {
 
   render() {
       const { query, books, searching} = this.state
-      const {allBooks, updateRack} = this.props
+      const { allBooks,updateRack} = this.props
       if (query) {
           BooksAPI.search(query).then((books) => {
             this.setState({ books: books, searching: false })
@@ -46,8 +46,8 @@ class SearchBooks extends React.Component {
                   <Link to="/" className="close-search">Close</Link>
                   <div className="search-books-input-wrapper">
                     <DebounceInput minLength={2} debounceTimeout={300}
-                    type="text" placeholder="Search by title or author"
-                    onChange={(event) => this.searchBook(event.target.value)} />
+                      type="text" placeholder="Search by title or author"
+                      onChange={(event) => this.searchBook(event.target.value)} />
                   </div>
               </div>
               <div className="search-books-results" style={{ opacity: searching ? 0.5 : 1 }}>
@@ -60,8 +60,9 @@ class SearchBooks extends React.Component {
                   {books.length > 0 && (
                     books.map(book => (
                       <li key={book.id}>
-                        <Book object={book} key={book.id} rack={ this.findBookRack(allBooks,book)}
-                          updateRack={(e) => {updateRack(e,book)}}/>
+                        {Book({book: book, rack:this.findBookRack(allBooks,book), 
+                          updateRack:(e) => {updateRack(e,book)}}
+                        )}
                       </li>
                     ))
                   )}

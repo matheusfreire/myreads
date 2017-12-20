@@ -1,28 +1,18 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
-class Book extends React.Component{
-
-    static propTypes = {
-        object:PropTypes.object.isRequired,
-        rack:PropTypes.string.isRequired,
-        updateRack: PropTypes.func.isRequired
-    }
-
-    render(){
-        const {object, rack, updateRack} = this.props
+const Book = (props) =>{
         return (
             <div>
-                {object && (
+                {props.book && (
                     <div className="book">
                         <div className="book-top">
                             <div className="book-cover" style={{
                                 width: 128, height: 193,
-                                backgroundImage: object.imageLinks ? `url(${object.imageLinks.thumbnail})`: ''
+                                backgroundImage: props.book.imageLinks ? `url(${props.book.imageLinks.thumbnail})`: ''
                             }}>
                             </div>
                             <div className="book-shelf-changer">
-                                <select value={rack} onChange={updateRack} >
+                                <select value={props.rack} onChange={props.updateRack} >
                                     <option value="none" disabled>Move to...</option>
                                     <option value="currentlyReading">Currently Reading</option>
                                     <option value="wantToRead">Want to Read</option>
@@ -31,18 +21,17 @@ class Book extends React.Component{
                                 </select>
                             </div>
                         </div>
-                        <div className="book-title">{object.title}</div>
+                        <div className="book-title">{props.book.title}</div>
                         <div className="book-authors">
-                            {object.authors && (
-                                object.authors.map(author => (
+                            {props.book.authors && (
+                                props.book.authors.map(author => (
                                     <p key={author}>{author}</p>
                                 ))
                             )}
-                        </div>
                     </div>
-                )}
-            </div>
-        )
-    }
+                </div>
+            )}
+        </div>
+    )
 }
 export default Book
