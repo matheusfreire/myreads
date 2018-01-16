@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 const Book = (props) =>{
         return (
@@ -12,6 +13,7 @@ const Book = (props) =>{
                             }}>
                             </div>
                             <div className="book-shelf-changer">
+                                
                                 <select value={props.rack} onChange={props.updateRack} >
                                     <option value="none" disabled>Move to...</option>
                                     <option value="currentlyReading">Currently Reading</option>
@@ -21,7 +23,11 @@ const Book = (props) =>{
                                 </select>
                             </div>
                         </div>
-                        <div className="book-title">{props.book.title}</div>
+                        <div className="book-title">
+                            <Link to={{pathname: `/info/${props.book.id}`, state: true}}>
+                                <span>{props.book.title}</span>
+                            </Link>
+                        </div>
                         <div className="book-authors">
                             {props.book.authors && (
                                 props.book.authors.map(author => (

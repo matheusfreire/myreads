@@ -4,6 +4,7 @@ import './App.css'
 import {Route} from 'react-router-dom'
 import ListBooks from './components/ListBooks'
 import SearchBooks from './components/SearchBooks'
+import BookInfo from './components/BookInfo'
 
 
 class BooksApp extends React.Component {
@@ -56,6 +57,7 @@ class BooksApp extends React.Component {
           <SearchBooks allBooks={allBooks}
             updateRack={this.updateRack}/>
         }/>
+        <Route exact path="/info/:bookId" component={BookInfo}/>
       </div>
     )
   }
